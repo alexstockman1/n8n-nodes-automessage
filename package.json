@@ -1,0 +1,54 @@
+{
+  "name": "n8n-nodes-automessage",
+  "version": "0.1.1",
+  "description": "iMessage for n8n: send and receive iMessage and SMS texts from your own Mac and Apple ID with autoMessage — blue-bubble texting in your workflows.",
+  "keywords": [
+    "n8n-community-node-package",
+    "imessage",
+    "sms",
+    "text message",
+    "texting",
+    "apple messages",
+    "automessage"
+  ],
+  "license": "MIT",
+  "homepage": "https://automessage.app",
+  "author": {
+    "name": "Stockman Digital",
+    "email": "alex@stockmandigital.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexstockman1/n8n-nodes-automessage.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && node scripts/copy-assets.mjs",
+    "dev": "tsc --watch",
+    "lint": "eslint nodes credentials",
+    "test": "node --test test/smoke.test.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/AutoMessageApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/AutoMessage/AutoMessage.node.js",
+      "dist/nodes/AutoMessageTrigger/AutoMessageTrigger.node.js"
+    ]
+  },
+  "devDependencies": {
+    "n8n-workflow": "^1.70.0",
+    "typescript": "^5.6.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

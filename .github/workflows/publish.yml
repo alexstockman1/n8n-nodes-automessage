@@ -1,0 +1,30 @@
+# Publish to npm with provenance (required by n8n's verified-node submission).
+# Uses npm TRUSTED PUBLISHING (OIDC) — no token secret; configure this repo +
+# workflow filename as a Trusted Publisher on the package's npmjs.com settings.
+# Trigger manually: gh workflow run publish.yml
+
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write   # OIDC for npm trusted publishing + provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      # npm >= 11.5 required for trusted publishing
+      - run: npm install -g npm@latest
+      # --ignore-scripts: n8n-workflow drags in isolated-vm (native, types-only use here)
+      - run: npm install --ignore-scripts
+      - run: npm run build
+      - run: npm test
+      - run: npm publish --access public --provenance
