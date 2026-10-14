@@ -2,6 +2,7 @@ import type {
     IAuthenticateGeneric,
     ICredentialTestRequest,
     ICredentialType,
+    Icon,
     INodeProperties,
 } from 'n8n-workflow';
 
@@ -9,6 +10,8 @@ export class AutoMessageApi implements ICredentialType {
     name = 'autoMessageApi';
 
     displayName = 'autoMessage API';
+
+    icon: Icon = { light: 'file:automessage.svg', dark: 'file:automessage.svg' };
 
     documentationUrl = 'https://automessage.app/api';
 

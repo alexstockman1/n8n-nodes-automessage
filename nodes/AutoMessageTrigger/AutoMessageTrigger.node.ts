@@ -19,7 +19,7 @@ export class AutoMessageTrigger implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'autoMessage Trigger',
         name: 'autoMessageTrigger',
-        icon: 'file:automessage.png',
+        icon: { light: 'file:automessage.svg', dark: 'file:automessage.svg' },
         group: ['trigger'],
         version: 1,
         subtitle: '={{$parameter["event"]}}',

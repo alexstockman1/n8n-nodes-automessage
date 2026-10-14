@@ -1,18 +1,18 @@
-// Copy node icons into dist (tsc only moves .ts files).
-// automessage.png = the official brand app-icon tile (256x256, from
-// "AutoMessage Assets/ChatGPT Image May 11, 2025, 08_36_35 AM-modified.png",
-// Alex-confirmed 2026-10-14 as THE marketplace logo).
+// Copy icons into dist (tsc only moves .ts files).
+// automessage.svg = the official brand app-icon tile wrapped in an SVG
+// container (n8n's lint requires SVG icons; art is the Alex-confirmed tile).
 import { copyFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const icon = join(root, 'nodes', 'AutoMessage', 'automessage.png');
-for (const target of [
-    join(root, 'dist', 'nodes', 'AutoMessage', 'automessage.png'),
-    join(root, 'dist', 'nodes', 'AutoMessageTrigger', 'automessage.png'),
+for (const rel of [
+    'nodes/AutoMessage/automessage.svg',
+    'nodes/AutoMessageTrigger/automessage.svg',
+    'credentials/automessage.svg',
 ]) {
+    const target = join(root, 'dist', rel);
     mkdirSync(dirname(target), { recursive: true });
-    copyFileSync(icon, target);
+    copyFileSync(join(root, rel), target);
 }
 console.log('assets copied');

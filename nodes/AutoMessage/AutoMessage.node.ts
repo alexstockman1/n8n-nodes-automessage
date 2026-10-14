@@ -21,7 +21,7 @@ export class AutoMessage implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'autoMessage',
         name: 'autoMessage',
-        icon: 'file:automessage.png',
+        icon: { light: 'file:automessage.svg', dark: 'file:automessage.svg' },
         group: ['output'],
         version: 1,
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -44,11 +44,11 @@ export class AutoMessage implements INodeType {
                 noDataExpression: true,
                 default: 'message',
                 options: [
-                    { name: 'Message', value: 'message', description: 'iMessage/SMS texts' },
+                    { name: 'Connector Status', value: 'status' },
+                    { name: 'Contact', value: 'contact' },
                     { name: 'Conversation', value: 'conversation' },
                     { name: 'Draft', value: 'draft', description: 'Queued outbound sends' },
-                    { name: 'Contact', value: 'contact' },
-                    { name: 'Connector Status', value: 'status' },
+                    { name: 'Message', value: 'message', description: 'Texts sent and received (iMessage/SMS)' },
                 ],
             },
 
@@ -64,7 +64,7 @@ export class AutoMessage implements INodeType {
                     {
                         name: 'Send',
                         value: 'send',
-                        action: 'Send an iMessage',
+                        action: 'Send an i message',
                         description: 'Send an iMessage or SMS text from your own Apple ID',
                         routing: {
                             request: { method: 'POST', url: '/v1/drafts' },
@@ -424,7 +424,7 @@ export class AutoMessage implements INodeType {
                         name: 'Create or Update',
                         value: 'upsert',
                         action: 'Create or update a contact',
-                        description: 'Idempotent upsert keyed on phone/email',
+                        description: 'Create a new record, or update the current one if it already exists (upsert)',
                         routing: {
                             request: { method: 'POST', url: '/v1/contacts' },
                             output: unwrapData,
@@ -521,7 +521,7 @@ export class AutoMessage implements INodeType {
                     {
                         name: 'Get',
                         value: 'get',
-                        action: 'Get Mac connector status',
+                        action: 'Get mac connector status',
                         description:
                             'Check whether the Mac connector is online before sending iMessages',
                         routing: {
